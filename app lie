@@ -1,0 +1,107 @@
+import java.util.Scanner;
+import java.lang.Math;
+//A program that takes in user inputs to guide the user through planning their vacation and various bits of info
+public class VacationPlanner {
+    //The main method calls other methods in the code
+    public static void main (String[] args) {
+        Scanner input = new Scanner(System.in);
+        intro();
+        info();
+        time();
+        area();
+        haversine();
+    }
+    //Stores the users name and where they would like to go
+    public static void intro() {
+        String name;
+        String destination;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Welcome to Zac's Vacation Planner!");
+        System.out.println("What is your name traveller?");
+        name = input.nextLine();
+        System.out.print("Nice to meet you " + name + ", where would you like to take a vacation?\n");
+        destination = input.nextLine();
+        System.out.print(destination + ", a great choice now let's get started!\n");
+    }
+    //Asks user for info and does simple calculations
+    public static void info() {
+        int days;
+        double money;
+        String currency;
+        double exchange;
+        int hours;
+        int minutes;
+        double moneyDay;
+        double budget;
+        double budgetDay;
+        Scanner input = new Scanner(System.in);
+        System.out.println("\nHow many days do you plan to spend on your vacation?");
+        days = input.nextInt();
+        System.out.println("How much money in US Dollars do you plan to spend on your trip?");
+        money = input.nextInt();
+        System.out.print("What is the three letter currency symbol for your travel destination?\n");
+        currency = input.next();
+        System.out.println("How many " + currency + " are there for 1 USD?");
+        exchange = input.nextDouble();
+        hours = days * 24;
+        minutes = hours * 60;
+        System.out.print("If you are travelling for " + days + " days that is the same as " + hours + " hours or " + minutes + " minutes.\n");
+        moneyDay = (money/days);
+        System.out.printf("If you are spending $" + money + " USD that means per day you can spend up to $%.2f USD\n", moneyDay);
+        budget = money * exchange;
+        budgetDay = moneyDay * exchange;
+        System.out.printf("Your total budget in " + currency + " is " + budget + " " + currency + ", which per day is %.2f ", budgetDay);
+        System.out.print(" " + currency + ".\n");
+    }
+    //Calculates the time difference between users home and destination
+    public static void time() {
+        int difference;
+        int midnight;
+        int noon;
+        Scanner input = new Scanner(System.in);
+        System.out.println("\nWhat is the time difference, in hours, between your home and destination?");
+        difference = input.nextInt();
+        midnight = (0 + difference)%24;
+        noon = (12 + difference)%24;
+        System.out.println("That means when it is midnight at home it will be " + midnight + ":00 at your travel destination\nand when it is noon at home it will be " + noon + ":00.");
+    }
+    //Turns square km to square mi.
+    public static void area() {
+        double km;
+        double mi;
+        Scanner input = new Scanner(System.in);
+        System.out.println("\nWhat is the square area of your destination in km^2?");
+        km = input.nextDouble();
+        mi = km * 0.38610216;
+        System.out.printf("In miles^2 the square area of your destination is %.2f.\n", mi);
+    }
+    //Uses Haversine formula to calculate the distance between the users home and destination
+    public static void haversine() {
+        double lat1;
+        double lon1;
+        double lat2;
+        double lon2;
+        double dlon;
+        double dlat;
+        double a;
+        double c;
+        double distance;
+        Scanner input = new Scanner(System.in);
+        System.out.println("\nWhat is the latitude of your home location?");
+        lat1 = input.nextDouble();
+        System.out.println("What is the longitude of your home location?");
+        lon1 = input.nextDouble();
+        System.out.println("What is the latitude of your destination?");
+        lat2 = input.nextDouble();
+        System.out.println("What is the longitude of your destination");
+        lon2 = input.nextDouble();
+        dlon = Math.toRadians(lon2 - lon1);
+        dlat = Math.toRadians(lat2 - lat1);
+        lat1 = Math.toRadians(lat1);
+        lat2 = Math.toRadians(lat2);
+        a = Math.sin(dlat/2) * Math.sin(dlat/2) + Math.sin(dlon/2) * Math.sin(dlon/2) * Math.cos(lat1) * Math.cos(lat2);
+        c = 2 * Math.asin(Math.sqrt(a));
+        distance = c * 6372;
+        System.out.printf("The distance between your home and destination is %.2f", distance);
+    }
+}
