@@ -1,0 +1,72 @@
+import java.util.*;
+/*A game seen from Seinfeld were two players choose odds or evens and then pick two numbers 0 through five.
+Then if the numbers add to be even the player who chose evens would win and vice versa.
+ */
+
+public class OddsAndEvens {
+
+    public static void main(String[] args) {
+        //Declares a scanner to receive input from the user, first by asking them there name.
+        Scanner in = new Scanner(System.in);
+        System.out.println("Let's play a game called Odds and Evens!");
+        System.out.println("First, what is your name?");
+        String name = in.nextLine();
+        System.out.println("Hello " + name + ", do you want to pick (O)dds or (E)vens");
+        //The user types in a character either O or E to stand for odds or evens.
+        String bool = in.nextLine();
+        String O = "O";
+        String E = "E";
+        //Logic to determine what the user chose and the correct response for each option.
+        if (bool.equals(O)) {
+            System.out.println("Great, " + name + " will be Odds and the computer will be Evens");
+        } else if (bool.equals(E)) {
+            System.out.println("Great, " + name + " will be Evens and the computer will be Odds");
+        } else {
+            System.out.println("Sorry that was incorrect please choose O or E");
+            bool = in.nextLine();
+            if (bool.equals(O)) {
+                System.out.println("Great, " + name + " will be Odds and the computer will be Evens");
+            } else if (bool.equals(E)) {
+                System.out.println("Great, " + name + " will be Evens and the computer will be Odds");
+            } else {
+                System.out.println("Sorry that was incorrect please choose O or E");
+                bool = in.nextLine();
+                if (bool.equals(O)) {
+                    System.out.println("Great, " + name + " will be Odds and the computer will be Evens");
+                } else if (bool.equals(E)) {
+                    System.out.println("Great, " + name + " will be Evens and the computer will be Odds");
+                }
+
+            }
+        }
+        //User chooses a number
+        System.out.println("Now how many \"fingers\" would you like to put out 0-5?");
+        int fingers = in.nextInt();
+        //Computer chooses a random number
+        Random rand = new Random();
+        int computer = rand.nextInt(6);
+        //Checks to see that user input a number between 0 and 5.
+        if (fingers <= 5) {
+            System.out.println("The computer plays " + computer + " \"fingers\".");
+        }
+        int sum = fingers + computer;
+        System.out.println(fingers + " + " + computer + " = " + sum);
+        //Logic to check if the sum of the user's and computer's numbers are odd or even.
+        boolean oddOrEven = sum % 2 == 0;
+        if (oddOrEven == true) {
+            System.out.println(sum + " is even.");
+            if (bool.equals(E)) {
+                System.out.println("That means " + name + " wins!");
+            } else {
+                System.out.println("That means the computer wins :(");
+            }
+        } else {
+            System.out.println(sum + " is odd.");
+            if (bool.equals(O)) {
+                System.out.println("That means " + name + " wins!");
+            } else {
+                System.out.println("That means the computer wins :(");
+            }
+        }
+    }
+}
